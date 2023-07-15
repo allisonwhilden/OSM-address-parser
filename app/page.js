@@ -68,15 +68,17 @@ export default function Home() {
             }}
           >
             <Textarea
+              bordered
               {...bindings}
               width={"100%"}
               label="Address to parse"
               minRows={2}
+              shadow={false}
+              animated={false}
             />
             <Spacer y={1} />
             <Textarea
               readOnly
-              bordered
               ref={outputTextAreaRef}
               label="Output"
               width={"100%"}
