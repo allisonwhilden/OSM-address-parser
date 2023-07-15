@@ -1,7 +1,15 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import { useState } from "react";
+import Image from "next/image";
+import styles from "./page.module.css";
+var parser = require("parse-address");
 
 export default function Home() {
+  const [address, setAddress] = useState(
+    "15946 Redmond Way, Suite 103 Redmond, WA 98052"
+  );
+  var parsed = parser.parseLocation(address);
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -15,7 +23,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
+            By{" "}
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
@@ -27,17 +35,17 @@ export default function Home() {
           </a>
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+      <label>
+        Address to parse <br />
+        <input
+          name="inputAddress"
+          onKeyDown={(e) =>
+            e.key === "Enter" ? setAddress(e.target.value) : ""
+          }
         />
-      </div>
+      </label>
+      <div>{parser.parseLocation(address).city}</div>
+      <div className={styles.center}></div>
 
       <div className={styles.grid}>
         <a
@@ -91,5 +99,5 @@ export default function Home() {
         </a>
       </div>
     </main>
-  )
+  );
 }
