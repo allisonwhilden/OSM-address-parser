@@ -8,6 +8,7 @@ import {
   createTheme,
   NextUIProvider,
   Container,
+  Text,
 } from "@nextui-org/react";
 import { Copy } from "iconoir-react";
 var parser = require("parse-address");
@@ -15,6 +16,7 @@ import {
   ThemeProvider as NextThemesProvider,
   useTheme as useNextTheme,
 } from "next-themes";
+import Image from "next/image";
 
 const lightTheme = createTheme({
   type: "light",
@@ -62,48 +64,61 @@ export default function Home() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "start",
               height: "100vh",
               width: "100%",
             }}
           >
-            <Textarea
-              bordered
-              {...bindings}
-              width={"100%"}
-              label="Address to parse"
-              minRows={2}
-              shadow={false}
-              animated={false}
+            <Image
+              src="/addressparser.svg"
+              alt="Address Parser image"
+              width={500}
+              height={500}
             />
+            <Container>
+              <Text h2>OSM Address Parser</Text>
+              <Text>Description text goes here</Text>
+            </Container>
             <Spacer y={1} />
-            <Textarea
-              readOnly
-              ref={outputTextAreaRef}
-              label="Output"
-              width={"100%"}
-              minRows={6}
-              value={`addr:housenumber  ${
-                parser.parseLocation(bindings.value).number
-              }
+            <Container>
+              <Textarea
+                bordered
+                {...bindings}
+                width={"100%"}
+                label="Address to parse"
+                minRows={2}
+                shadow={false}
+                animated={false}
+              />
+              <Spacer y={1} />
+              <Textarea
+                readOnly
+                ref={outputTextAreaRef}
+                label="Output"
+                width={"100%"}
+                minRows={6}
+                value={`addr:housenumber  ${
+                  parser.parseLocation(bindings.value).number
+                }
 addr:street       ${parser.parseLocation(bindings.value).street}
 addr:unit        ${parser.parseLocation(bindings.value).sec_unit_num} 
 addr:city         ${parser.parseLocation(bindings.value).city}
 addr:state        ${parser.parseLocation(bindings.value).state}
 addr:postcode     ${parser.parseLocation(bindings.value).zip}
         `}
-            />
+              />
 
-            <Spacer y={1} />
-            <Button
-              rounded
-              color="secondary"
-              flat
-              icon={<Copy outline="currentColor" />}
-              onPress={onPress}
-            >
-              Copy
-            </Button>
+              <Spacer y={1} />
+              <Button
+                rounded
+                color="secondary"
+                flat
+                icon={<Copy outline="currentColor" />}
+                onPress={onPress}
+              >
+                Copy
+              </Button>
+            </Container>
           </div>
         </Container>
       </NextUIProvider>
