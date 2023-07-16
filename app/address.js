@@ -771,11 +771,11 @@
       if (parts[k])
         parsed[key] = parts[k].trim().replace(/^\s+|\s+$|[^\w\s\-#&]/g, "");
     });
-    each(Normalize_Map, function (map, key) {
-      if (parsed[key] && map[parsed[key].toLowerCase()]) {
-        parsed[key] = map[parsed[key].toLowerCase()];
-      }
-    });
+    // each(Normalize_Map, function (map, key) {
+    //   if (parsed[key] && map[parsed[key].toLowerCase()]) {
+    //     parsed[key] = map[parsed[key].toLowerCase()];
+    //   }
+    // });
 
     ["type", "type1", "type2"].forEach(function (key) {
       if (key in parsed)

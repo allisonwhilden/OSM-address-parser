@@ -30,7 +30,9 @@ export default function Home() {
     setValue: setControlledValue,
     reset,
     bindings,
-  } = useInput("15946 Redmond Way, Suite 103 Redmond, WA 98052");
+  } = useInput(
+    "15946 North Redmond Way Northeast, Suite 103 Redmond, WA 98052"
+  );
 
   // Ref for output
   const outputJOSMTextAreaRef = useRef(null);
@@ -98,7 +100,7 @@ export default function Home() {
                 value={
                   bindings.value
                     ? `addr:housenumber  ${parsed.number?.trim()}
-addr:street       ${parsed.street?.trim()}
+addr:street       ${parsed.prefix?.trim()} ${parsed.street?.trim()} ${parsed.type?.trim()} ${parsed.suffix?.trim()}
 addr:unit        ${parsed.sec_unit_num?.trim()} 
 addr:city         ${parsed.city?.trim()}
 addr:state        ${parsed.state?.trim()}
@@ -126,7 +128,7 @@ addr:postcode     ${parsed.zip?.trim()}`
                 value={
                   bindings.value
                     ? `addr:housenumber=${parsed.number?.trim()}
-addr:street=${parsed.street?.trim()}
+addr:street=${parsed.prefix?.trim()} ${parsed.street?.trim()} ${parsed.type?.trim()} ${parsed.suffix?.trim()}
 addr:unit=${parsed.sec_unit_num?.trim()} 
 addr:city=${parsed.city?.trim()}
 addr:state=${parsed.state?.trim()}
