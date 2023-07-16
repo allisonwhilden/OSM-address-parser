@@ -84,7 +84,7 @@ export default function Home() {
                 for entering it into the Open Street Map database.
               </Text>
             </Container>
-            <Spacer y={1} />
+            <Spacer y={2} />
             <Container>
               <Textarea
                 bordered
