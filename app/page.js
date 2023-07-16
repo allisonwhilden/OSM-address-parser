@@ -9,8 +9,10 @@ import {
   NextUIProvider,
   Container,
   Text,
+  Link,
+  Tooltip,
 } from "@nextui-org/react";
-import { Copy } from "iconoir-react";
+import { Copy, GithubCircle } from "iconoir-react";
 var parser = require("./address.js");
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import Image from "next/image";
@@ -66,7 +68,6 @@ export default function Home() {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "start",
-              height: "100vh",
               width: "100%",
             }}
           >
@@ -148,6 +149,30 @@ addr:postcode=${parsed.zip?.trim()}`
                 Copy
               </Button>
             </Container>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              height: "100px",
+              marginTop: "20px",
+            }}
+          >
+            <Tooltip
+              content={"View repository on Github"}
+              rounded
+              color="invert"
+            >
+              <Link
+                color="text"
+                href="https://github.com/allisonwhilden/OSM-address-parser"
+                target="_blank"
+              >
+                <GithubCircle />
+              </Link>
+            </Tooltip>
           </div>
         </Container>
       </NextUIProvider>
