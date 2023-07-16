@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import {
   Textarea,
   useInput,
@@ -11,11 +11,8 @@ import {
   Text,
 } from "@nextui-org/react";
 import { Copy } from "iconoir-react";
-var parser = require("parse-address");
-import {
-  ThemeProvider as NextThemesProvider,
-  useTheme as useNextTheme,
-} from "next-themes";
+var parser = require("./address.js");
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 import Image from "next/image";
 
 const lightTheme = createTheme({
@@ -34,7 +31,6 @@ export default function Home() {
     reset,
     bindings,
   } = useInput("15946 Redmond Way, Suite 103 Redmond, WA 98052");
-  console.log(bindings);
 
   // Ref for output
   const outputJOSMTextAreaRef = useRef(null);
@@ -101,12 +97,12 @@ export default function Home() {
                 width={"100%"}
                 value={
                   bindings.value
-                    ? `addr:housenumber  ${parsed.number.trim()}
-addr:street       ${parsed.street.trim()}
-addr:unit        ${parsed.sec_unit_num.trim()} 
-addr:city         ${parsed.city.trim()}
-addr:state        ${parsed.state.trim()}
-addr:postcode     ${parsed.zip.trim()}`
+                    ? `addr:housenumber  ${parsed.number?.trim()}
+addr:street       ${parsed.street?.trim()}
+addr:unit        ${parsed.sec_unit_num?.trim()} 
+addr:city         ${parsed.city?.trim()}
+addr:state        ${parsed.state?.trim()}
+addr:postcode     ${parsed.zip?.trim()}`
                     : ""
                 }
               />
@@ -129,12 +125,12 @@ addr:postcode     ${parsed.zip.trim()}`
                 width={"100%"}
                 value={
                   bindings.value
-                    ? `addr:housenumber=${parsed.number.trim()}
-addr:street=${parsed.street.trim()}
-addr:unit=${parsed.sec_unit_num.trim()} 
-addr:city=${parsed.city.trim()}
-addr:state=${parsed.state.trim()}
-addr:postcode=${parsed.zip.trim()}`
+                    ? `addr:housenumber=${parsed.number?.trim()}
+addr:street=${parsed.street?.trim()}
+addr:unit=${parsed.sec_unit_num?.trim()} 
+addr:city=${parsed.city?.trim()}
+addr:state=${parsed.state?.trim()}
+addr:postcode=${parsed.zip?.trim()}`
                     : ""
                 }
               />
