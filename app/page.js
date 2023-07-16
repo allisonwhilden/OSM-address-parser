@@ -130,11 +130,11 @@ addr:postcode     ${parsed.zip}`
                 value={
                   bindings.value
                     ? `addr:housenumber=${parsed.number}
-addr:street=${parsed.street}
-addr:unit=${parsed.sec_unit_num} 
-addr:city=${parsed.city}
-addr:state=${parsed.state}
-addr:postcode=${parsed.zip}`
+addr:street=${parsed.street.trim()}
+addr:unit=${parsed.sec_unit_num.trim()} 
+addr:city=${parsed.city.trim()}
+addr:state=${parsed.state.trim()}
+addr:postcode=${parsed.zip.trim()}`
                     : ""
                 }
               />
