@@ -34,12 +34,19 @@ export default function Home() {
     reset,
     bindings,
   } = useInput("15946 Redmond Way, Suite 103 Redmond, WA 98052");
+  console.log(bindings);
 
   // Ref for output
-  const outputTextAreaRef = useRef(null);
-  const onPress = () => {
-    if (outputTextAreaRef.current) {
-      navigator.clipboard.writeText(outputTextAreaRef.current.value);
+  const outputJOSMTextAreaRef = useRef(null);
+  const onPressJOSM = () => {
+    if (outputJOSMTextAreaRef.current) {
+      navigator.clipboard.writeText(outputJOSMTextAreaRef.current.value);
+    }
+  };
+  const outputiDTextAreaRef = useRef(null);
+  const onPressiD = () => {
+    if (outputiDTextAreaRef.current) {
+      navigator.clipboard.writeText(outputiDTextAreaRef.current.value);
     }
   };
   var parsed = bindings.value ? parser.parseLocation(bindings.value) : "";
@@ -86,11 +93,11 @@ export default function Home() {
                 shadow={false}
                 animated={false}
               />
-              <Spacer y={1} />
+              <Spacer y={2} />
               <Textarea
                 readOnly
-                ref={outputTextAreaRef}
-                label="Output"
+                ref={outputJOSMTextAreaRef}
+                label="JOSM Structure"
                 width={"100%"}
                 value={
                   bindings.value
@@ -99,8 +106,7 @@ addr:street       ${parsed.street}
 addr:unit        ${parsed.sec_unit_num} 
 addr:city         ${parsed.city}
 addr:state        ${parsed.state}
-addr:postcode     ${parsed.zip}
-        `
+addr:postcode     ${parsed.zip}`
                     : ""
                 }
               />
@@ -111,7 +117,35 @@ addr:postcode     ${parsed.zip}
                 color="secondary"
                 flat
                 icon={<Copy outline="currentColor" />}
-                onPress={onPress}
+                onPress={onPressJOSM}
+              >
+                Copy
+              </Button>
+              <Spacer y={2} />
+              <Textarea
+                readOnly
+                ref={outputiDTextAreaRef}
+                label="iD Structure"
+                width={"100%"}
+                value={
+                  bindings.value
+                    ? `addr:housenumber=${parsed.number}
+addr:street=${parsed.street}
+addr:unit=${parsed.sec_unit_num} 
+addr:city=${parsed.city}
+addr:state=${parsed.state}
+addr:postcode=${parsed.zip}`
+                    : ""
+                }
+              />
+
+              <Spacer y={1} />
+              <Button
+                rounded
+                color="secondary"
+                flat
+                icon={<Copy outline="currentColor" />}
+                onPress={onPressiD}
               >
                 Copy
               </Button>
