@@ -79,7 +79,10 @@ export default function Home() {
             />
             <Container>
               <Text h2>OSM Address Parser</Text>
-              <Text>Description text goes here</Text>
+              <Text>
+                Enter an address to convert it to both JOSM and iD tag structure
+                for entering it into the Open Street Map database.
+              </Text>
             </Container>
             <Spacer y={1} />
             <Container>
