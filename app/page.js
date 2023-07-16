@@ -98,13 +98,13 @@ export default function Home() {
                 width={"100%"}
                 minRows={6}
                 value={`addr:housenumber  ${
-                  parser.parseLocation(bindings.value).number
+                  parser.parseLocation(bindings.value).number.trim()
                 }
-addr:street       ${parser.parseLocation(bindings.value).street}
-addr:unit        ${parser.parseLocation(bindings.value).sec_unit_num} 
-addr:city         ${parser.parseLocation(bindings.value).city}
-addr:state        ${parser.parseLocation(bindings.value).state}
-addr:postcode     ${parser.parseLocation(bindings.value).zip}
+addr:street       ${parser.parseLocation(bindings.value).street.trim()}
+addr:unit        ${parser.parseLocation(bindings.value).sec_unit_num.trim()} 
+addr:city         ${parser.parseLocation(bindings.value).city.trim()}
+addr:state        ${parser.parseLocation(bindings.value).state.trim()}
+addr:postcode     ${parser.parseLocation(bindings.value).zip.trim()}
         `}
               />
 
