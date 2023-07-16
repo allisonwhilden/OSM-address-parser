@@ -27,11 +27,6 @@ const darkTheme = createTheme({
 });
 
 export default function Home() {
-  const [address, setAddress] = useState(
-    "15946 Redmond Way, Suite 103 Redmond, WA 98052"
-  );
-  var parsed = parser.parseLocation(address);
-
   // Controlled for input
   const {
     value: controlledValue,
@@ -47,6 +42,7 @@ export default function Home() {
       navigator.clipboard.writeText(outputTextAreaRef.current.value);
     }
   };
+  var parsed = bindings.value ? parser.parseLocation(bindings.value) : "";
 
   return (
     <NextThemesProvider
@@ -96,16 +92,17 @@ export default function Home() {
                 ref={outputTextAreaRef}
                 label="Output"
                 width={"100%"}
-                minRows={6}
-                value={`addr:housenumber  ${
-                  parser.parseLocation(bindings.value).number
+                value={
+                  bindings.value
+                    ? `addr:housenumber  ${parsed.number}
+addr:street       ${parsed.street}
+addr:unit        ${parsed.sec_unit_num} 
+addr:city         ${parsed.city}
+addr:state        ${parsed.state}
+addr:postcode     ${parsed.zip}
+        `
+                    : ""
                 }
-addr:street       ${parser.parseLocation(bindings.value).street}
-addr:unit        ${parser.parseLocation(bindings.value).sec_unit_num} 
-addr:city         ${parser.parseLocation(bindings.value).city}
-addr:state        ${parser.parseLocation(bindings.value).state}
-addr:postcode     ${parser.parseLocation(bindings.value).zip}
-        `}
               />
 
               <Spacer y={1} />
