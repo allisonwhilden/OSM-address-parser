@@ -112,7 +112,11 @@ export default function Home() {
                           : ""
                       }${
                         parsed.street
-                          ? `addr:street=${parsed.prefix?.trim()} ${parsed.street?.trim()} ${parsed.type?.trim()} ${parsed.suffix?.trim()}`
+                          ? `addr:street=${
+                              parsed.prefix ? parsed.prefix?.trim() : ""
+                            } ${parsed.street?.trim()} ${
+                              parsed.type ? parsed.type?.trim() : ""
+                            } ${parsed.suffix ? parsed.suffix?.trim() : ""}`
                           : ""
                       }${
                         parsed.sec_unit_num
