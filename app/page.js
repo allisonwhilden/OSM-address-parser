@@ -103,16 +103,16 @@ export default function Home() {
               <Textarea
                 readOnly
                 ref={outputJOSMTextAreaRef}
-                label="OpenStreetMap Tags"
+                label="OpenStreetMap tags"
                 width={"100%"}
                 value={
                   bindings.value
                     ? `addr:housenumber  ${parsed.number?.trim()}
-addr:street       ${parsed.prefix?.trim()} ${parsed.street?.trim()} ${parsed.type?.trim()} ${parsed.suffix?.trim()}
-addr:unit        ${parsed.sec_unit_num?.trim()} 
-addr:city         ${parsed.city?.trim()}
-addr:state        ${parsed.state?.trim()}
-addr:postcode     ${parsed.zip?.trim()}`
+addr:street=${parsed.prefix?.trim()} ${parsed.street?.trim()} ${parsed.type?.trim()} ${parsed.suffix?.trim()}
+addr:unit=${parsed.sec_unit_num?.trim()} 
+addr:city=${parsed.city?.trim()}
+addr:state=${parsed.state?.trim()}
+addr:postcode=${parsed.zip?.trim()}`
                     : ""
                 }
               />
