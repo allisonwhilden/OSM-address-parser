@@ -108,11 +108,11 @@ export default function Home() {
                   bindings.value
                     ? `${
                         parsed.number
-                          ? `addr:housenumber  ${parsed.number?.trim()}`
+                          ? `addr:housenumber=${parsed.number?.trim()}\n`
                           : ""
                       }${
                         parsed.street
-                          ? `\naddr:street=${parsed.prefix?.trim()} ${parsed.street?.trim()} ${parsed.type?.trim()} ${parsed.suffix?.trim()}`
+                          ? `addr:street=${parsed.prefix?.trim()} ${parsed.street?.trim()} ${parsed.type?.trim()} ${parsed.suffix?.trim()}`
                           : ""
                       }${
                         parsed.sec_unit_num
