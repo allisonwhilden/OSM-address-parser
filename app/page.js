@@ -81,11 +81,10 @@ export default function Home() {
               <Text h2>OSM Address Parser</Text>
               <Text>
                 Enter an address to convert it to both JOSM and iD tag structure
-                for entering it into the OpenStreetMap database. Make sure to review
-                each tag for accuracy and completeness.
-
-                Reminder: Abbreviations in street names should be expanded to conform
-                          to OpenStreetMap style.
+                for entering it into the OpenStreetMap database. Make sure to
+                review each tag for accuracy and completeness. Reminder:
+                Abbreviations in street names should be expanded to conform to
+                OpenStreetMap style.
               </Text>
             </Container>
             <Spacer y={2} />
@@ -107,12 +106,29 @@ export default function Home() {
                 width={"100%"}
                 value={
                   bindings.value
-                    ? `addr:housenumber  ${parsed.number?.trim()}
-addr:street=${parsed.prefix?.trim()} ${parsed.street?.trim()} ${parsed.type?.trim()} ${parsed.suffix?.trim()}
-addr:unit=${parsed.sec_unit_num?.trim()} 
-addr:city=${parsed.city?.trim()}
-addr:state=${parsed.state?.trim()}
-addr:postcode=${parsed.zip?.trim()}`
+                    ? `${
+                        parsed.number
+                          ? `addr:housenumber  ${parsed.number?.trim()}`
+                          : ""
+                      }${
+                        parsed.street
+                          ? `\naddr:street=${parsed.prefix?.trim()} ${parsed.street?.trim()} ${parsed.type?.trim()} ${parsed.suffix?.trim()}`
+                          : ""
+                      }${
+                        parsed.sec_unit_num
+                          ? `\naddr:unit=${parsed.sec_unit_num?.trim()}`
+                          : ""
+                      }${
+                        parsed.city ? `\naddr:city=${parsed.city?.trim()}` : ""
+                      }${
+                        parsed.state
+                          ? `\naddr:state=${parsed.state?.trim()}`
+                          : ""
+                      }${
+                        parsed.zip
+                          ? `\naddr:postcode=${parsed.zip?.trim()}`
+                          : ""
+                      }`
                     : ""
                 }
               />
