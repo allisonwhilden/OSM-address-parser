@@ -81,7 +81,11 @@ export default function Home() {
               <Text h2>OSM Address Parser</Text>
               <Text>
                 Enter an address to convert it to both JOSM and iD tag structure
-                for entering it into the Open Street Map database.
+                for entering it into the OpenStreetMap database. Make sure to review
+                each tag for accuracy and completeness.
+
+                Reminder: Abbreviations in street names should be expanded to conform
+                          to OpenStreetMap style.
               </Text>
             </Container>
             <Spacer y={2} />
