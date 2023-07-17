@@ -103,7 +103,7 @@ export default function Home() {
               <Textarea
                 readOnly
                 ref={outputJOSMTextAreaRef}
-                label="JOSM Structure"
+                label="OpenStreetMap Tags"
                 width={"100%"}
                 value={
                   bindings.value
@@ -124,34 +124,6 @@ addr:postcode     ${parsed.zip?.trim()}`
                 flat
                 icon={<Copy outline="currentColor" />}
                 onPress={onPressJOSM}
-              >
-                Copy
-              </Button>
-              <Spacer y={2} />
-              <Textarea
-                readOnly
-                ref={outputiDTextAreaRef}
-                label="iD Structure"
-                width={"100%"}
-                value={
-                  bindings.value
-                    ? `addr:housenumber=${parsed.number?.trim()}
-addr:street=${parsed.prefix?.trim()} ${parsed.street?.trim()} ${parsed.type?.trim()} ${parsed.suffix?.trim()}
-addr:unit=${parsed.sec_unit_num?.trim()} 
-addr:city=${parsed.city?.trim()}
-addr:state=${parsed.state?.trim()}
-addr:postcode=${parsed.zip?.trim()}`
-                    : ""
-                }
-              />
-
-              <Spacer y={1} />
-              <Button
-                rounded
-                color="secondary"
-                flat
-                icon={<Copy outline="currentColor" />}
-                onPress={onPressiD}
               >
                 Copy
               </Button>
