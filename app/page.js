@@ -87,6 +87,8 @@ export default function Home() {
                   Enter an address to convert it to both JOSM and iD tag
                   structure for entering it into the OpenStreetMap database.
                   Make sure to review each tag for accuracy and completeness.
+                </Text>
+                <Text color="secondary">
                   Reminder: Abbreviations in street names should be expanded to
                   conform to OpenStreetMap style.
                 </Text>
