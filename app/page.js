@@ -14,6 +14,7 @@ import {
 } from "@nextui-org/react";
 import { Copy, GithubCircle } from "iconoir-react";
 var parser = require("./address.js");
+var { expandStreetParts } = require("./abbreviations.js");
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import Image from "next/image";
 
@@ -52,7 +53,9 @@ export default function Home() {
       navigator.clipboard.writeText(outputiDTextAreaRef.current.value);
     }
   };
-  var parsed = bindings.value ? parser.parseLocation(bindings.value) : "";
+  var parsed = bindings.value
+    ? expandStreetParts(parser.parseLocation(bindings.value))
+    : "";
 
   return (
     <div style={{ visibility: !mounted ? "hidden" : "" }}>
@@ -89,8 +92,8 @@ export default function Home() {
                   Make sure to review each tag for accuracy and completeness.
                 </Text>
                 <Text color="secondary">
-                  Reminder: Abbreviations in street names should be expanded to
-                  conform to OpenStreetMap style.
+                  Note: Common abbreviations in street names are automatically
+                  expanded to conform to OpenStreetMap style.
                 </Text>
               </Container>
               <Spacer y={2} />

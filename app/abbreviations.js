@@ -1,0 +1,307 @@
+// Expands common US street name abbreviations to full words
+// for OpenStreetMap compliance.
+
+// Directional abbreviations → full words (case-insensitive lookup)
+var Directional_Expand = {
+  n: "North",
+  s: "South",
+  e: "East",
+  w: "West",
+  ne: "Northeast",
+  nw: "Northwest",
+  se: "Southeast",
+  sw: "Southwest",
+};
+
+// USPS canonical street type abbreviations → full words
+// These are the canonical abbreviations that address.js normalizes to.
+var Street_Type_Expand = {
+  aly: "Alley",
+  anx: "Annex",
+  arc: "Arcade",
+  ave: "Avenue",
+  byu: "Bayou",
+  bch: "Beach",
+  bnd: "Bend",
+  blf: "Bluff",
+  blfs: "Bluffs",
+  btm: "Bottom",
+  blvd: "Boulevard",
+  br: "Branch",
+  brg: "Bridge",
+  brk: "Brook",
+  brks: "Brooks",
+  bg: "Burg",
+  bgs: "Burgs",
+  byp: "Bypass",
+  cp: "Camp",
+  cyn: "Canyon",
+  cpe: "Cape",
+  cswy: "Causeway",
+  ctr: "Center",
+  ctrs: "Centers",
+  cir: "Circle",
+  cirs: "Circles",
+  clf: "Cliff",
+  clfs: "Cliffs",
+  clb: "Club",
+  cmn: "Common",
+  cmns: "Commons",
+  cor: "Corner",
+  cors: "Corners",
+  crse: "Course",
+  ct: "Court",
+  cts: "Courts",
+  cv: "Cove",
+  cvs: "Coves",
+  crk: "Creek",
+  cres: "Crescent",
+  crst: "Crest",
+  xing: "Crossing",
+  xrd: "Crossroad",
+  xrds: "Crossroads",
+  curv: "Curve",
+  dl: "Dale",
+  dm: "Dam",
+  dv: "Divide",
+  dr: "Drive",
+  drs: "Drives",
+  est: "Estate",
+  ests: "Estates",
+  expy: "Expressway",
+  ext: "Extension",
+  exts: "Extensions",
+  fall: "Fall",
+  fls: "Falls",
+  fry: "Ferry",
+  fld: "Field",
+  flds: "Fields",
+  flt: "Flat",
+  flts: "Flats",
+  frd: "Ford",
+  frds: "Fords",
+  frst: "Forest",
+  frg: "Forge",
+  frgs: "Forges",
+  frk: "Fork",
+  frks: "Forks",
+  ft: "Fort",
+  fwy: "Freeway",
+  gdn: "Garden",
+  gdns: "Gardens",
+  gtwy: "Gateway",
+  gln: "Glen",
+  glns: "Glens",
+  grn: "Green",
+  grns: "Greens",
+  grv: "Grove",
+  grvs: "Groves",
+  hbr: "Harbor",
+  hbrs: "Harbors",
+  hvn: "Haven",
+  hts: "Heights",
+  hwy: "Highway",
+  hl: "Hill",
+  hls: "Hills",
+  holw: "Hollow",
+  inlt: "Inlet",
+  is: "Island",
+  iss: "Islands",
+  isle: "Isle",
+  jct: "Junction",
+  jcts: "Junctions",
+  ky: "Key",
+  kys: "Keys",
+  knl: "Knoll",
+  knls: "Knolls",
+  lk: "Lake",
+  lks: "Lakes",
+  land: "Land",
+  lndg: "Landing",
+  ln: "Lane",
+  lgt: "Light",
+  lgts: "Lights",
+  lf: "Loaf",
+  lck: "Lock",
+  lcks: "Locks",
+  ldg: "Lodge",
+  loop: "Loop",
+  mall: "Mall",
+  mnr: "Manor",
+  mnrs: "Manors",
+  mdw: "Meadow",
+  mdws: "Meadows",
+  mews: "Mews",
+  ml: "Mill",
+  mls: "Mills",
+  msn: "Mission",
+  mtwy: "Motorway",
+  mt: "Mount",
+  mtn: "Mountain",
+  mtns: "Mountains",
+  nck: "Neck",
+  orch: "Orchard",
+  oval: "Oval",
+  opas: "Overpass",
+  park: "Park",
+  pkwy: "Parkway",
+  pass: "Pass",
+  psge: "Passage",
+  path: "Path",
+  pike: "Pike",
+  pne: "Pine",
+  pnes: "Pines",
+  pl: "Place",
+  pln: "Plain",
+  plns: "Plains",
+  plz: "Plaza",
+  pt: "Point",
+  pts: "Points",
+  prt: "Port",
+  prts: "Ports",
+  pr: "Prairie",
+  radl: "Radial",
+  rnch: "Ranch",
+  rpd: "Rapid",
+  rpds: "Rapids",
+  rst: "Rest",
+  rdg: "Ridge",
+  rdgs: "Ridges",
+  riv: "River",
+  rd: "Road",
+  rds: "Roads",
+  rte: "Route",
+  row: "Row",
+  rue: "Rue",
+  run: "Run",
+  shl: "Shoal",
+  shls: "Shoals",
+  shr: "Shore",
+  shrs: "Shores",
+  skwy: "Skyway",
+  spg: "Spring",
+  spgs: "Springs",
+  spur: "Spur",
+  sq: "Square",
+  sqs: "Squares",
+  sta: "Station",
+  stra: "Stravenue",
+  strm: "Stream",
+  st: "Street",
+  sts: "Streets",
+  smt: "Summit",
+  ter: "Terrace",
+  trwy: "Throughway",
+  tpke: "Turnpike",
+  trak: "Track",
+  trce: "Trace",
+  trfy: "Trafficway",
+  trl: "Trail",
+  tunl: "Tunnel",
+  un: "Union",
+  uns: "Unions",
+  upas: "Underpass",
+  vly: "Valley",
+  vlys: "Valleys",
+  via: "Viaduct",
+  vw: "View",
+  vws: "Views",
+  vlg: "Village",
+  vlgs: "Villages",
+  vl: "Ville",
+  vis: "Vista",
+  walk: "Walk",
+  wall: "Wall",
+  way: "Way",
+  wl: "Well",
+  wls: "Wells",
+};
+
+function expandDirectional(value) {
+  if (!value) return value;
+  var expanded = Directional_Expand[value.toLowerCase()];
+  return expanded || value;
+}
+
+function expandStreetType(value) {
+  if (!value) return value;
+  var expanded = Street_Type_Expand[value.toLowerCase()];
+  return expanded || value;
+}
+
+// Common saint names found in US street names.
+// Matched case-insensitively after "St" prefix.
+var Saint_Names = [
+  "Andrew", "Andrews",
+  "Anne", "Ann",
+  "Anthony",
+  "Augustine",
+  "Bernard",
+  "Catherine", "Catherines",
+  "Charles",
+  "Christopher",
+  "Claire", "Clare",
+  "Cloud",
+  "Clair",
+  "David",
+  "Edward", "Edwards",
+  "Elmo",
+  "Francis",
+  "George",
+  "Helena",
+  "Helens",
+  "James",
+  "John", "Johns",
+  "Joseph",
+  "Lawrence",
+  "Louis",
+  "Luke",
+  "Margaret",
+  "Mark", "Marks",
+  "Martin",
+  "Mary", "Marys",
+  "Michael",
+  "Nicholas",
+  "Olaf",
+  "Patrick",
+  "Paul",
+  "Peter",
+  "Rose",
+  "Simon",
+  "Stephen",
+  "Thomas",
+  "Vincent",
+];
+
+var Saint_Pattern = new RegExp(
+  "^St\\.?\\s+(" + Saint_Names.join("|") + ")\\b",
+  "i"
+);
+
+function expandStreetName(value) {
+  if (!value) return value;
+  // Saint: "St Catherine" / "St. Catherine" → "Saint Catherine"
+  value = value.replace(Saint_Pattern, function (match, name) {
+    return "Saint " + name.charAt(0).toUpperCase() + name.slice(1);
+  });
+  // County Road: "CR 123" → "County Road 123"
+  value = value.replace(/^CR(?=\s+\d)/i, "County Road");
+  // Forest Service Road: "Fs Road" → "Forest Service Road"
+  value = value.replace(/^Fs Road\b/i, "Forest Service Road");
+  return value;
+}
+
+function expandStreetParts(parsed) {
+  if (!parsed) return parsed;
+  var result = Object.assign({}, parsed);
+  // "E Street" is a real street name — don't expand "E" prefix when street is just "Street"
+  if (!(result.prefix && result.prefix.match(/^e$/i) && result.type && result.type.match(/^st(reet)?$/i) && !result.street)) {
+    result.prefix = expandDirectional(result.prefix);
+  }
+  result.suffix = expandDirectional(result.suffix);
+  result.type = expandStreetType(result.type);
+  result.street = expandStreetName(result.street);
+  return result;
+}
+
+module.exports = { expandStreetParts };
