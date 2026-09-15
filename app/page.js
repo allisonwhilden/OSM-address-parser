@@ -2,13 +2,8 @@
 import { useRef, useEffect, useState } from "react";
 import {
   Textarea,
-  useInput,
   Button,
-  Spacer,
-  createTheme,
   NextUIProvider,
-  Container,
-  Text,
   Link,
   Tooltip,
 } from "@nextui-org/react";
@@ -18,25 +13,12 @@ var { expandStreetParts } = require("./abbreviations.js");
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import Image from "next/image";
 
-const lightTheme = createTheme({
-  type: "light",
-});
-
-const darkTheme = createTheme({
-  type: "dark",
-});
-
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  // Controlled for input
-  const {
-    value: controlledValue,
-    setValue: setControlledValue,
-    reset,
-    bindings,
-  } = useInput(
+  // Controlled input value
+  const [inputValue, setInputValue] = useState(
     "15946 North Redmond Way Northeast, Suite 103 Redmond, WA 98052"
   );
 
@@ -53,8 +35,8 @@ export default function Home() {
       navigator.clipboard.writeText(outputiDTextAreaRef.current.value);
     }
   };
-  var parsed = bindings.value
-    ? expandStreetParts(parser.parseLocation(bindings.value))
+  var parsed = inputValue
+    ? expandStreetParts(parser.parseLocation(inputValue))
     : "";
 
   return (
@@ -62,13 +44,9 @@ export default function Home() {
       <NextThemesProvider
         defaultTheme="system"
         attribute="class"
-        value={{
-          light: lightTheme.className,
-          dark: darkTheme.className,
-        }}
       >
         <NextUIProvider>
-          <Container>
+          <div className="container mx-auto px-4">
             <div
               style={{
                 display: "flex",
@@ -84,37 +62,35 @@ export default function Home() {
                 width={500}
                 height={500}
               />
-              <Container>
-                <Text h2>OSM Address Parser</Text>
-                <Text>
+              <div className="w-full max-w-4xl">
+                <h2 className="text-2xl font-bold mb-4">OSM Address Parser</h2>
+                <p className="mb-2">
                   Enter an address to convert it to both JOSM and iD tag
                   structure for entering it into the OpenStreetMap database.
                   Make sure to review each tag for accuracy and completeness.
-                </Text>
-                <Text color="secondary">
+                </p>
+                <p className="text-secondary mb-4">
                   Note: Common abbreviations in street names are automatically
                   expanded to conform to OpenStreetMap style.
-                </Text>
-              </Container>
-              <Spacer y={2} />
-              <Container>
+                </p>
+              </div>
+              <div className="mb-8"></div>
+              <div className="w-full max-w-4xl">
                 <Textarea
-                  bordered
-                  {...bindings}
-                  width={"100%"}
+                  value={inputValue}
+                  onValueChange={setInputValue}
+                  className="w-full"
                   label="Address to parse"
                   minRows={2}
-                  shadow={false}
-                  animated={false}
                 />
-                <Spacer y={2} />
+                <div className="mb-8"></div>
                 <Textarea
                   readOnly
                   ref={outputJOSMTextAreaRef}
                   label="OpenStreetMap tags"
-                  width={"100%"}
+                  className="w-full"
                   value={
-                    bindings.value
+                    inputValue
                       ? `${
                           parsed.number
                             ? `addr:housenumber=${parsed.number?.trim()}\n`
@@ -148,17 +124,16 @@ export default function Home() {
                   }
                 />
 
-                <Spacer y={1} />
+                <div className="mb-4"></div>
                 <Button
-                  rounded
                   color="secondary"
-                  flat
-                  icon={<Copy outline="currentColor" />}
+                  variant="flat"
+                  startContent={<Copy />}
                   onPress={onPressJOSM}
                 >
                   Copy
                 </Button>
-              </Container>
+              </div>
               <div
                 style={{
                   display: "flex",
@@ -169,13 +144,8 @@ export default function Home() {
                   marginTop: "20px",
                 }}
               >
-                <Tooltip
-                  content={"View repository on Github"}
-                  rounded
-                  color="invert"
-                >
+                <Tooltip content="View repository on Github">
                   <Link
-                    color="text"
                     href="https://github.com/allisonwhilden/OSM-address-parser"
                     target="_blank"
                   >
@@ -184,7 +154,7 @@ export default function Home() {
                 </Tooltip>
               </div>
             </div>
-          </Container>
+          </div>
         </NextUIProvider>
       </NextThemesProvider>
     </div>
